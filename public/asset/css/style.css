@@ -1,0 +1,225 @@
+/* General Styles */
+:root {
+    --primary-color: #4e73df;
+    --secondary-color: #858796;
+    --success-color: #1cc88a;
+    --info-color: #36b9cc;
+    --warning-color: #f6c23e;
+    --danger-color: #e74a3b;
+    --light-color: #f8f9fc;
+    --dark-color: #5a5c69;
+}
+
+body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fc;
+}
+
+/* Auth Pages */
+.auth-page {
+    background-color: var(--light-color);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.auth-card {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    transition: all 0.3s ease;
+}
+
+.auth-card:hover {
+    box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.2);
+}
+
+.divider-with-text {
+    position: relative;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.divider-with-text::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #e3e6f0;
+    z-index: 1;
+}
+
+.divider-text {
+    position: relative;
+    padding: 0 1rem;
+    background-color: white;
+    z-index: 2;
+    color: var(--secondary-color);
+    font-size: 0.8rem;
+}
+
+.btn-social {
+    border-radius: 0.35rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-social:hover {
+    transform: translateY(-2px);
+}
+
+.btn-social i {
+    transition: all 0.3s ease;
+}
+
+.btn-social:hover i {
+    transform: scale(1.2);
+}
+
+/* Dashboard Styles */
+.dashboard-page {
+    background-color: #f8f9fc;
+}
+
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+    position: fixed;
+    z-index: 1000;
+}
+
+.sidebar-user {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-menu {
+    height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.menu-item {
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item.active {
+    border-left: 3px solid var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.menu-item:hover a, .menu-item.active a {
+    color: white;
+}
+
+.main-content {
+    margin-left: 250px;
+    transition: all 0.3s ease;
+}
+
+/* Stats Cards */
+.stat-card {
+    border: none;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.stat-card .progress {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Activity Items */
+.activity-item {
+    padding: 0.5rem;
+    border-radius: 0.35rem;
+    transition: all 0.3s ease;
+}
+
+.activity-item:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+}
+
+/* Profile Page */
+.profile-img {
+    transition: all 0.3s ease;
+}
+
+.profile-img:hover {
+    transform: scale(1.05);
+}
+
+/* Animations */
+.animate__animated {
+    animation-duration: 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animate__fadeIn {
+    animation-name: fadeIn;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+/* Utility Classes */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
