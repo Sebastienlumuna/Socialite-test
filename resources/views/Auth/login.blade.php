@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion | Mon Application</title>
+    <title>Connexion | {{ config('app.name') }}</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body class="auth-page">
     <div class="container">
@@ -23,18 +23,25 @@
                         </div>
 
                         <!-- Formulaire de connexion -->
-                        <form method="POST" action="/login" class="mb-4">
+                        <form method="POST" action="{{ route('login') }}" class="mb-4">
+                            @csrf
                             <div class="mb-3">
                                 <label for="email" class="form-label">Adresse Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required autofocus>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required autofocus>
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Mot de passe</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                                    <input class="form-check-input" type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
                                     <label class="form-check-label" for="remember">Se souvenir de moi</label>
                                 </div>
                                 <a href="#" class="text-decoration-none">Mot de passe oublié ?</a>
@@ -60,7 +67,7 @@
                         </div>
 
                         <div class="text-center mt-4">
-                            <p class="text-muted">Pas encore de compte ? <a href="/register.html" class="text-decoration-none fw-bold">S'inscrire</a></p>
+                            <p class="text-muted">Pas encore de compte ? <a href="{{ route('register') }}" class="text-decoration-none fw-bold">S'inscrire</a></p>
                         </div>
                     </div>
                 </div>
@@ -71,6 +78,6 @@
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
-    <script src="/js/main.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

@@ -3,49 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil | Mon Application</title>
+    <title>Profil | {{ config('app.name') }}</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body class="dashboard-page">
     <div class="d-flex">
         <!-- Sidebar -->
         <div class="sidebar bg-dark text-white" id="sidebar">
             <div class="sidebar-header p-3 d-flex justify-content-between align-items-center">
-                <h4 class="m-0">Mon App</h4>
+                <h4 class="m-0">{{ config('app.name') }}</h4>
                 <button class="btn btn-sm btn-outline-light d-lg-none" id="sidebarToggle">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="sidebar-user p-3 text-center">
-                <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" alt="User" class="rounded-circle mb-2" width="80">
-                <h5 class="m-0">John Doe</h5>
-                <small class="text-muted">john.doe@example.com</small>
+                <img src="{{ Auth::user()->avatar ?? 'https://ui-avatars.com/api/?name='.urlencode(Auth::user()->name) }}" alt="User" class="rounded-circle mb-2" width="80">
+                <h5 class="m-0">{{ Auth::user()->name }}</h5>
+                <small class="text-muted">{{ Auth::user()->email }}</small>
             </div>
             <ul class="sidebar-menu list-unstyled p-0 m-0">
                 <li class="menu-item">
-                    <a href="/dashboard.html" class="d-block p-3">
+                    <a href="{{ route('dashboard') }}" class="d-block p-3">
                         <i class="fas fa-home me-2"></i> Accueil
                     </a>
                 </li>
                 <li class="menu-item active">
-                    <a href="/profile.html" class="d-block p-3">
+                    <a href="{{ route('profile') }}" class="d-block p-3">
                         <i class="fas fa-user me-2"></i> Profil
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="d-block p-3">
+                    <a href="{{ route('settings') }}" class="d-block p-3">
                         <i class="fas fa-cog me-2"></i> Paramètres
                     </a>
                 </li>
                 <li class="menu-item mt-auto">
-                    <a href="#" class="d-block p-3">
-                        <i class="fas fa-sign-out-alt me-2"></i> Déconnexion
-                    </a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <a href="{{ route('logout') }}" class="d-block p-3" onclick="event.preventDefault(); this.closest('form').submit();">
+                            <i class="fas fa-sign-out-alt me-2"></i> Déconnexion
+                        </a>
+                    </form>
                 </li>
             </ul>
         </div>
@@ -61,14 +64,19 @@
                     <div class="d-flex align-items-center ms-auto">
                         <div class="dropdown">
                             <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" alt="User" width="32" height="32" class="rounded-circle me-2">
-                                <span>John Doe</span>
+                                <img src="{{ Auth::user()->avatar ?? 'https://ui-avatars.com/api/?name='.urlencode(Auth::user()->name) }}" alt="User" width="32" height="32" class="rounded-circle me-2">
+                                <span>{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
-                                <li><a class="dropdown-item" href="/profile.html">Profil</a></li>
-                                <li><a class="dropdown-item" href="#">Paramètres</a></li>
+                                <li><a class="dropdown-item" href="{{ route('profile') }}">Profil</a></li>
+                                <li><a class="dropdown-item" href="{{ route('settings') }}">Paramètres</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Déconnexion</a></li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">Déconnexion</a>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -82,7 +90,7 @@
                     <div class="breadcrumb">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="/dashboard.html">Accueil</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Accueil</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Profil</li>
                             </ol>
                         </nav>
@@ -211,8 +219,12 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Sécurité</h5>
-                                        <p class="card-text">Authentification à deux facteurs: <span class="text-danger">Désactivée</span></p>
-                                        <button class="btn btn-sm btn-outline-primary me-2">Activer 2FA</button>
+                                        <p class="card-text">Authentification à deux facteurs: <span class="text-{{ Auth::user()->two_factor_enabled ? 'success' : 'danger' }}">{{ Auth::user()->two_factor_enabled ? 'Activée' : 'Désactivée' }}</span></p>
+                                        @if(Auth::user()->two_factor_enabled)
+                                            <button class="btn btn-sm btn-outline-danger me-2">Désactiver 2FA</button>
+                                        @else
+                                            <button class="btn btn-sm btn-outline-primary me-2">Activer 2FA</button>
+                                        @endif
                                         <button class="btn btn-sm btn-outline-secondary">Changer mot de passe</button>
                                     </div>
                                 </div>
@@ -233,10 +245,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
                         <div class="mb-3">
                             <label for="editName" class="form-label">Nom complet</label>
-                            <input type="text" class="form-control" id="editName" value="John Doe">
+                            <input type="text" class="form-control" id="editName" name="name" value="{{ Auth::user()->name }}">
                         </div>
                         <div class="mb-3">
                             <label for="editEmail" class="form-label">Email</label>
