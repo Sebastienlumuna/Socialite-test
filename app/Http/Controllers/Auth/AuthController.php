@@ -18,4 +18,9 @@ class AuthController extends Controller
     {
         return view('auth.register');
     }
+
+    public function dashboard(): view
+    {
+        return view('client.dashboard');
+    }
 }
