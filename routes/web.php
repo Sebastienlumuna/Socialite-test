@@ -17,4 +17,5 @@ use App\Http\Controllers\Auth\AuthController;
 Route::controller(AuthController::class)->group(function () {
     Route::get('/', 'loginform')->name('login');
     Route::get('/register', 'registerform')->name('register');
+    Route::get('/dashboard', 'dashboard')->name('dashboard');
 });

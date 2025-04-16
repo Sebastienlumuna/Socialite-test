@@ -9,7 +9,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/style.css') }}" rel="stylesheet">
 </head>
 <body class="dashboard-page">
     <div class="d-flex">
@@ -22,9 +22,9 @@
                 </button>
             </div>
             <div class="sidebar-user p-3 text-center">
-                <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}&background=random" alt="User" class="rounded-circle mb-2" width="80">
-                <h5 class="m-0">{{ Auth::user()->name }}</h5>
-                <small class="text-muted">{{ Auth::user()->email }}</small>
+                <img src="https://ui-avatars.com/api/?name=&background=random" alt="User" class="rounded-circle mb-2" width="80">
+                <h5 class="m-0"></h5>
+                <small class="text-muted"></small>
             </div>
             <ul class="sidebar-menu list-unstyled p-0 m-0">
                 <li class="menu-item active">
@@ -33,19 +33,19 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="{{ route('profile') }}" class="d-block p-3">
+                    <a href="" class="d-block p-3">
                         <i class="fas fa-user me-2"></i> Profil
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="{{ route('settings') }}" class="d-block p-3">
+                    <a href="" class="d-block p-3">
                         <i class="fas fa-cog me-2"></i> Paramètres
                     </a>
                 </li>
                 <li class="menu-item mt-auto">
-                    <form method="POST" action="{{ route('logout') }}">
+                    <form method="POST" action="">
                         @csrf
-                        <a href="{{ route('logout') }}" class="d-block p-3" onclick="event.preventDefault(); this.closest('form').submit();">
+                        <a href="" class="d-block p-3" onclick="event.preventDefault(); this.closest('form').submit();">
                             <i class="fas fa-sign-out-alt me-2"></i> Déconnexion
                         </a>
                     </form>
@@ -64,17 +64,17 @@
                     <div class="d-flex align-items-center ms-auto">
                         <div class="dropdown">
                             <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}&background=random" alt="User" width="32" height="32" class="rounded-circle me-2">
-                                <span>{{ Auth::user()->name }}</span>
+                                <img src="https://ui-avatars.com/api/?name=&background=random" alt="User" width="32" height="32" class="rounded-circle me-2">
+                                <span></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
-                                <li><a class="dropdown-item" href="{{ route('profile') }}">Profil</a></li>
-                                <li><a class="dropdown-item" href="{{ route('settings') }}">Paramètres</a></li>
+                                <li><a class="dropdown-item" href="">Profil</a></li>
+                                <li><a class="dropdown-item" href="">Paramètres</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <form method="POST" action="{{ route('logout') }}">
+                                    <form method="POST" action="">
                                         @csrf
-                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">Déconnexion</a>
+                                        <a class="dropdown-item" href=" onclick="event.preventDefault(); this.closest('form').submit();">Déconnexion</a>
                                     </form>
                                 </li>
                             </ul>
@@ -167,7 +167,7 @@
                 <!-- Welcome Message -->
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h4 class="card-title">Bienvenue, {{ Auth::user()->name }} !</h4>
+                        <h4 class="card-title">Bienvenue, !</h4>
                         <p class="card-text">Vous êtes connecté à votre tableau de bord. Voici un aperçu de vos activités récentes et statistiques.</p>
                         <a href="#" class="btn btn-primary">Commencer</a>
                     </div>
@@ -182,7 +182,6 @@
                             </div>
                             <div class="card-body">
                                 <div class="activity-list">
-                                    @foreach($activities as $activity)
                                     <div class="activity-item d-flex mb-3">
                                         <div class="activity-icon bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3">
                                             <i class="fas fa-user-plus"></i>
@@ -238,8 +237,8 @@
                                         <i class="fab fa-google fa-2x text-danger"></i>
                                     </div>
                                     <div>
-                                        <h6 class="mb-0">{{ $connection->name }}</h6>
-                                        <small class="text-muted">{{ $connection->status }}</small>
+                                        <h6 class="mb-0"></h6>
+                                        <small class="text-muted"></small>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center mb-3">
@@ -271,6 +270,6 @@
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
-    <script src="{{ asset('js/main.js') }}"></script>
+
 </body>
 </html>
